@@ -11,12 +11,26 @@ import { UserService } from 'src/app/service/user.service';
 export class UserListComponent implements OnInit {
 
   users$: Observable<User[]> = this.userService.getAll();
-
+phrase="";
   constructor(
     private userService: UserService,
   ) { }
 
   ngOnInit(): void {
+  }
+
+  onChangePhrase(event: any): void {
+    this.phrase = (event.target as HTMLInputElement).value;
+    
+  }
+
+  onDelete(user:User): void {
+    if (!confirm("Are you sure?")) {
+      return;
+    }
+    this.userService.remove(user);
+      //this.router.navigate(['user']),     
+    
   }
 
 }
