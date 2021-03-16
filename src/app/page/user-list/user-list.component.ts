@@ -32,7 +32,10 @@ export class UserListComponent implements OnInit {
     if (!confirm("Are you sure?")) {
       return;
     }
-    this.userService.remove(user);
+    this.userService.remove(user).subscribe(
+      () => location.reload()
+     
+    );;
     //this.router.navigate(['user']),     
 
   }

@@ -40,11 +40,19 @@ export class UserEditorComponent implements OnInit {
 
   onUpdate(form: NgForm, user: User): void {
     if (user.id === 0) {
-      this.userService.create(user);
+      this.userService.create(user).subscribe(
+        //() => location.reload()
+        () =>this.router.navigate(['user'])
+       // updatedUser => console.log(updatedUser)
+      );
     } else {
       this.updating = true;
-      this.userService.update(user);
+      this.userService.update(user).subscribe(
+       // () => location.reload()
+       () =>this.router.navigate(['user'])
+       // updatedUser => console.log(updatedUser)
+      );
     }
-    this.router.navigate(['user'])
+    //this.router.navigate(['user'])
   }
 }
