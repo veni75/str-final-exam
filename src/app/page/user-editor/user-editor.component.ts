@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/model/user';
@@ -12,7 +12,7 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit {
-
+  updating: boolean = false;
   /**
    * user$ {Observable<User>}
    * Can be two different type of User:
@@ -32,9 +32,19 @@ export class UserEditorComponent implements OnInit {
   constructor(
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
   }
 
+  onUpdate(form: NgForm, user: User): void {
+    if (user.id === 0) {
+      this.userService.create(user);
+    } else {
+      this.updating = true;
+      this.userService.update(user);
+    }
+    this.router.navigate(['user'])
+  }
 }
