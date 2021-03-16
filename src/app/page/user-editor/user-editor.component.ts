@@ -20,7 +20,7 @@ export class UserEditorComponent implements OnInit {
    * 2. If the params.id isn't 0: a user from the database based on its id.
    */
   user$: Observable<User> = this.activatedRoute.params.pipe(
-    switchMap( params => {
+    switchMap(params => {
       if (Number(params.id) === 0) {
         return of(new User());
       }
@@ -41,18 +41,13 @@ export class UserEditorComponent implements OnInit {
   onUpdate(form: NgForm, user: User): void {
     if (user.id === 0) {
       this.userService.create(user).subscribe(
-        //() => location.reload()
-        () =>this.router.navigate(['user'])
-       // updatedUser => console.log(updatedUser)
+        () => this.router.navigate(['user'])
       );
     } else {
       this.updating = true;
       this.userService.update(user).subscribe(
-       // () => location.reload()
-       () =>this.router.navigate(['user'])
-       // updatedUser => console.log(updatedUser)
+        () => this.router.navigate(['user'])
       );
-    }
-    //this.router.navigate(['user'])
+    }    
   }
 }
