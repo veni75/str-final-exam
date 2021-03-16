@@ -11,7 +11,8 @@ import { UserService } from 'src/app/service/user.service';
 export class UserListComponent implements OnInit {
 
   users$: Observable<User[]> = this.userService.getAll();
-phrase="";
+  phrase = '';
+  columnKey: string = '';
   constructor(
     private userService: UserService,
   ) { }
@@ -21,16 +22,19 @@ phrase="";
 
   onChangePhrase(event: any): void {
     this.phrase = (event.target as HTMLInputElement).value;
-    
   }
 
-  onDelete(user:User): void {
+  onColumnSelect(key: string): void {
+    this.columnKey = key;    
+  }
+
+  onDelete(user: User): void {
     if (!confirm("Are you sure?")) {
       return;
     }
     this.userService.remove(user);
-      //this.router.navigate(['user']),     
-    
+    //this.router.navigate(['user']),     
+
   }
 
 }
